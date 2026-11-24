@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <radialGradient id="glowA" cx="82%" cy="14%" r="48%">
+      <stop offset="0%" stop-color="#e9b949" stop-opacity="0.16"/>
+      <stop offset="55%" stop-color="#e9b949" stop-opacity="0.04"/>
+      <stop offset="100%" stop-color="#0b1017" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx="16%" cy="86%" r="52%">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.13"/>
+      <stop offset="60%" stop-color="#131b26" stop-opacity="0.03"/>
+      <stop offset="100%" stop-color="#0b1017" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M 48 0 L 0 0 0 48" fill="none" stroke="#e7edf5" stroke-opacity="0.035" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1440" height="900" fill="#0b1017"/>
+  <rect width="1440" height="900" fill="url(#grid)"/>
+  <rect width="1440" height="900" fill="url(#glowA)"/>
+  <rect width="1440" height="900" fill="url(#glowB)"/>
+  <path d="M-120 710 C 260 560, 520 820, 940 620 C 1180 505, 1320 560, 1560 440" fill="none" stroke="#e9b949" stroke-opacity="0.11" stroke-width="1.5"/>
+  <path d="M-80 240 C 310 110, 660 350, 1080 180 C 1260 105, 1380 145, 1520 95" fill="none" stroke="#93c5fd" stroke-opacity="0.09" stroke-width="1.25"/>
+</svg>

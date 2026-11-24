@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1017">
+  <meta name="description" content="تطبيق ويب تقدمي لصياغة ومراجعة مسودات الآراء بمرونة وتحكم كامل.">
+  <title>مساعد الآراء</title>
+  <link rel="manifest" href="/static/manifest.json">
+  <link rel="icon" type="image/svg+xml" href="/static/icon.svg">
+  <link rel="apple-touch-icon" href="/static/icon-192.png">
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <div class="backdrop-layer" aria-hidden="true"></div>
+  <div class="backdrop-orb backdrop-orb--gold" aria-hidden="true"></div>
+  <div class="backdrop-orb backdrop-orb--blue" aria-hidden="true"></div>
+
+  <div class="shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">
+          <img src="/static/icon.svg" alt="شعار مساعد الآراء">
+        </div>
+        <div>
+          <h1 class="brand-title">مساعد الآراء</h1>
+          <p class="brand-sub">أهلاً بك في عالم البرمجة؛ أصمم وأطوّر أدوات تفاعلية تمنحك صياغة دقيقة وتحكماً كاملاً قبل النشر.</p>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <div id="netStatus" class="status-chip" role="status" aria-live="polite">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span id="netLabel">متصل</span>
+        </div>
+        <button id="installBtn" class="primary" type="button" hidden>تثبيت التطبيق</button>
+        <button id="settingsBtn" class="ghost" type="button">الإعدادات</button>
+      </div>
+    </header>
+
+    <section class="preset-strip" aria-label="أنماط سريعة">
+      <span class="preset-label">ضبط سريع للنمط:</span>
+      <div class="preset-list">
+        <button type="button" class="preset-btn" data-preset="quick">تعليق سريع</button>
+        <button type="button" class="preset-btn" data-preset="balanced">رأي متوازن</button>
+        <button type="button" class="preset-btn" data-preset="deep">تحليل أعمق</button>
+      </div>
+    </section>
+
+    <main class="workspace">
+      <section class="pane" aria-label="مدخلات النص والضبط">
+        <div class="pane-head">
+          <label for="text" class="pane-title">المقال أو السؤال</label>
+          <div class="mini-actions">
+            <button id="pasteBtn" class="ghost ghost--sm" type="button">لصق من الحافظة</button>
+            <button id="clearInputBtn" class="ghost ghost--sm" type="button">مسح النص</button>
+          </div>
+        </div>
+
+        <textarea id="text" rows="10" placeholder="الصق النص أو السؤال هنا بأي لغة..." maxlength="8000"></textarea>
+        <div class="meta-bar">
+          <span><strong id="inCount">0</strong> / 8000 حرف</span>
+          <span id="inWords">0 كلمة</span>
+        </div>
+
+        <fieldset>
+          <legend>الموقف</legend>
+          <div class="seg" data-key="stance">
+            <button type="button" class="seg-btn on" data-v="auto" aria-pressed="true">تلقائي</button>
+            <button type="button" class="seg-btn" data-v="agree" aria-pressed="false">أوافق</button>
+            <button type="button" class="seg-btn" data-v="disagree" aria-pressed="false">أخالف</button>
+            <button type="button" class="seg-btn" data-v="mixed" aria-pressed="false">متوازن</button>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>الطول</legend>
+          <div class="seg" data-key="length">
+            <button type="button" class="seg-btn" data-v="short" aria-pressed="false">قصير</button>
+            <button type="button" class="seg-btn on" data-v="default" aria-pressed="true">عادي</button>
+            <button type="button" class="seg-btn" data-v="long" aria-pressed="false">أطول</button>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>بداية الرأي</legend>
+          <div class="seg" data-key="angle">
+            <button type="button" class="seg-btn on" data-v="auto" aria-pressed="true">تلقائي</button>
+            <button type="button" class="seg-btn" data-v="practical" aria-pressed="false">ملاحظة عملية</button>
+            <button type="button" class="seg-btn" data-v="caveat" aria-pressed="false">تحفّظ بسيط</button>
+            <button type="button" class="seg-btn" data-v="reaction" aria-pressed="false">ردّ مباشر</button>
+            <button type="button" class="seg-btn" data-v="daily" aria-pressed="false">أثر يومي</button>
+          </div>
+        </fieldset>
+
+        <div class="row">
+          <label for="language">لغة المخرج</label>
+          <select id="language">
+            <option value="">نفس لغة النص</option>
+            <option value="Arabic">Arabic</option>
+            <option value="English">English</option>
+            <option value="German">German</option>
+            <option value="French">French</option>
+            <option value="Spanish">Spanish</option>
+            <option value="Turkish">Turkish</option>
+          </select>
+        </div>
+
+        <button id="go" class="primary" type="button">اكتب المسودة</button>
+      </section>
+
+      <section class="pane pane--output" aria-live="polite" aria-label="المسودة الناتجة">
+        <div class="pane-head">
+          <h2 class="pane-title">المسودة (قابلة للتعديل)</h2>
+          <span id="wc" class="status-chip">0 كلمة</span>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat-card">
+            <span class="stat-card__k">الكلمات</span>
+            <span id="statWords" class="stat-card__v">0</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-card__k">الجمل</span>
+            <span id="statSentences" class="stat-card__v">0</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-card__k">الأحرف</span>
+            <span id="statChars" class="stat-card__v">0</span>
+          </div>
+        </div>
+
+        <div class="gauge-wrap">
+          <div class="gauge" aria-hidden="true">
+            <div class="zone"></div>
+            <div id="dot" class="dot"></div>
+          </div>
+          <div class="gl" aria-hidden="true">
+            <span>0</span>
+            <span>35</span>
+            <span>75</span>
+            <span>110</span>
+          </div>
+        </div>
+
+        <textarea id="draft" rows="8" dir="auto" placeholder="ستظهر المسودة هنا لتراجعها وتعدّلها بحرية قبل النشر..."></textarea>
+        <p id="err" class="err" role="alert" hidden></p>
+
+        <div class="actions">
+          <button id="copy" class="ghost" type="button">نسخ المسودة</button>
+          <button id="again" class="ghost" type="button">مسودة أخرى</button>
+          <button id="clearDraft" class="ghost" type="button">تفريغ</button>
+        </div>
+
+        <div class="history-box">
+          <div class="pane-head">
+            <span class="preset-label">سجل الجلسة الأخيرة</span>
+            <button id="clearHistory" class="ghost ghost--sm" type="button">مسح السجل</button>
+          </div>
+          <div id="historyList" class="history-list"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="dlg">
+    <form method="dialog">
+      <label for="key">مفتاح Anthropic API</label>
+      <input id="key" type="password" autocomplete="off" placeholder="sk-ant-...">
+
+      <label for="model">النموذج</label>
+      <input id="model" type="text" dir="ltr" value="claude-sonnet-5-5">
+
+      <p class="note">يُحفظ المفتاح محلياً في متصفحك فقط (localStorage) ويُرسل مباشرة إلى api.anthropic.com.</p>
+
+      <div class="dialog-actions">
+        <button class="ghost" value="cancel">إغلاق</button>
+        <button class="primary" id="saveKey" value="ok">حفظ</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
